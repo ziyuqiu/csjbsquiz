@@ -1,0 +1,46 @@
+<template name="quiz1">
+	<div class="row 1">
+		<div class="col-md-6 col-md-offset-0 col-xs-8 bg-warning">		
+			<h2>Project info of Class</h2>
+			<table class="table table-hover">
+				<thead>
+					<tr><th>Project</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Website URL</th>
+					<th>Github URL</th></tr>
+				</thead>
+				<tbody>
+					{{#each ips}}
+						{{> iprow}}
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-6 col-md-offset-0 col-xs-4 bg-info">
+			<h2>Enter your Project Info</h2>
+			<form id="createipform">
+				Name of Project: <input type="text" name="project"><br/>
+				First Name: <input type="text" name="firstName"><br/>
+				Last Name: <input type="text" name="lastName"><br/>
+				URL of Website: <input type="text" name="website"><br/>
+				URL of Github: <input type="text" name="github"><br/>
+				<input type="submit">
+			</form>
+		</div>
+	</div>
+</template>
+
+
+<template name="iprow">
+	<tr>
+		<td>{{project}}</td>
+		<td>{{firstName}}</td>
+		<td>{{lastName}}</td>
+		<td><a href="https://{{website}}">{{website}}</a></td>
+		<td><a href="https://{{github}}">{{github}}</a></td>
+		<td>
+			<span class="glyphicon glyphicon-remove jbsapp-delete-icon" aria-hidden="true"></span>
+		</td>
+	</tr>
+</template>
