@@ -9,3 +9,14 @@ autopublish
 insecure
 iron:router
 twbs:bootstrap
+autoupdate
+base64
+blaze
+check
+ddp
+ejson
+htmljs
+id-map
+iron:controller
+iron:core
+iron:location
