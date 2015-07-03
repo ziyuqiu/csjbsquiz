@@ -1,0 +1,56 @@
+<template name= "quiz2New">
+	<h1>Meteor Draw</h1>
+	{{>line}}
+	{{>bgColor}}
+	{{>penColor}}
+	<div id="pos">Position:(,)</div>
+	<canvas id="board" width="500" height="400" style="background: yellow;">
+		Get a better brower!
+	</canvas>
+</template>
+
+<!-- <template name= "colorOptions">
+	<option id="red" value='FF0000' selected="selected">Red</option>
+	<option id="org" value="FF7400" selected="selected">Orange</option>
+	<option id="yel" value="FFCA00" selected="selected">Yellow</option>
+	<option id="gre" value="00FF00" selected="selected">Green</option>
+	<option id="blu" value="024FFF" selected="selected">Blue</option>
+	<option id="ppl" value="7C02FF" selected="selected">Purple</option>
+    <option id="pnk" value="E183B8" selected="selected">Pink</option>
+	<option id="wht" value="FFFFFF" selected="selected">White</option>
+	<option id="gry" value="A9A9A9" selected="selected">Grey</option>
+	<option id="blk" value="000000" selected="selected">Black</option>
+</template> -->
+<template name= "line">
+	<div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">Line<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" id="line1">extra light</a></li>
+            <li><a href="#" id="line2">light</a></li>
+            <li><a href="#" id="line3">bold</a></li>
+
+        </ul>
+    </div>
+</template>
+<template name= "bgColor">
+	<div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">Background Color <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" id="red">Red</a></li>
+            <li><a href="#" id="yel">Yellow</a></li>
+            <li><a href="#" id="blu">Blue</a></li>
+            <li><a href="#" id="blk">Black</a></li>
+        </ul>
+    </div>
+</template>
+<template name= "penColor">
+	<div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">Pen Color <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" id="red">Red</a></li>
+            <li><a href="#" id="yel">Yellow</a></li>
+            <li><a href="#" id="blu">Blue</a></li>
+            <li><a href="#" id="blk">Black</a></li>
+        </ul>
+    </div>
+</template>
