@@ -9,38 +9,52 @@ Template.makeupquiz.rendered = function(){
 	board.addEventListener('click',
 		function(e){
 			if(array.length==0){
-				running=true;
 				add(e);
+				running=true;
 			}
 			//if there is a previous point
 			else{
+
 				if(running){
-					add(e);				
-					drawIt();
-					var dis = distance(xnow,ynow,array[array.length-1].x,array[array.length-1].y);
+					add(e);
+					var dis = distance(xnow,ynow,array[0].x,array[0].y);
+					console.log(dis);
 					//if the point is close enough to the start point
-					if(dis<=5){
+					if(dis<=10){
 						//stop drawing
 						running=false;
 					}
+							
+					drawIt();
+					
+					
 				}
 			}
 
 		}
 	);
-	//
+	
 	// board.addEventListener('mousemove', 
 	// 	function(e){
-	// 	   	if (running) {//if the mouse is clicked (in the drawing mode)
+	// 	   	if (!running) {
+	// 	   		return;
+	// 	   	} else{  		//if the mouse is clicked (in the drawing mode)
 	// 	   		//connect start point and current point with a yellow line
 	// 	   		context = board.getContext("2d");//get CanvasRenderingContext2D
-	// 	   		xnow=e.pageX-board.offsetLeft;//get the x coordinate of the pen
-	// 	   		ynow=e.pageY-board.offsetTop;//get the y coordinate of the pen
-	// 	   		console.log(xnow,ynow);
-	// 	   		$("#pos").html("position = ("+xnow+","+ynow+")");// update the coordinates of pen  		
+	// 	   		current(e);
 	// 	   		context.lineTo(xnow,ynow);//draw a line to the specific ending point
-	// 	   		context.strokeStyle
+	// 	   		context.strokeStyle = 'FFCA00';
 	// 	   		context.stroke();//the "ink" method, take the path the "lineTo" calls and actually draws it on canvas	   		
+		 		
+	// 	 		context.beginPath();
+	// 			context.moveTo(startX,startY);
+	// 			newX = e.pageX - canvas.offsetLeft;
+	// 			newY = e.pageY - canvas.offsetTop;
+	// 	    	drawContext.lineTo(newX,newY);
+	// 	    	console.log(newX,newY);
+	// 	    	drawContext.strokeStyle="yellow";
+	// 	    	drawContext.stroke();
+	// 	    	drawContext.closePath();
 	// 	 	}
 	// 	}
 	// )
@@ -76,24 +90,22 @@ function triangle(){
 	drawContext.stroke();//draw it
 }
 
-function clean(){
-
-}
-
 function distance(a,b,c,d) { 
-	return Math.sqrt((a-c)*(a-c)+(b-d)*(b-d));
+	var distance= Math.sqrt((a-c)*(a-c)+(b-d)*(b-d));
+	return distance;
 }
-
-function add(e){
+function current(e){
 	var context = board.getContext("2d");
 	xnow=e.pageX-board.offsetLeft;//get the x coordinate of the pen
 	ynow=e.pageY-board.offsetTop;//get the y coordinate of the pen
 	point=new Point(xnow,ynow);
-	array.push(point);
-	//if there is no previous point :start a point
 	console.log(xnow,ynow);
 	console.log(array);
 	$("#pos").html("position = ("+xnow+","+ynow+")");
+	return point;
+}
+function add(e){
+	array.push(current(e));
 }
 
 function drawIt(){
