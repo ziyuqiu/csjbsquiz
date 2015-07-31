@@ -14,7 +14,6 @@ Template.makeupquiz.rendered = function(){
 			}
 			//if there is a previous point
 			else{
-
 				if(running){
 					add(e);
 					var dis = distance(xnow,ynow,array[0].x,array[0].y);
@@ -34,37 +33,30 @@ Template.makeupquiz.rendered = function(){
 		}
 	);
 	
-	// board.addEventListener('mousemove', 
-	// 	function(e){
-	// 	   	if (!running) {
-	// 	   		return;
-	// 	   	} else{  		//if the mouse is clicked (in the drawing mode)
-	// 	   		//connect start point and current point with a yellow line
-	// 	   		context = board.getContext("2d");//get CanvasRenderingContext2D
-	// 	   		current(e);
-	// 	   		context.lineTo(xnow,ynow);//draw a line to the specific ending point
-	// 	   		context.strokeStyle = 'FFCA00';
-	// 	   		context.stroke();//the "ink" method, take the path the "lineTo" calls and actually draws it on canvas	   		
-		 		
-	// 	 		context.beginPath();
-	// 			context.moveTo(startX,startY);
-	// 			newX = e.pageX - canvas.offsetLeft;
-	// 			newY = e.pageY - canvas.offsetTop;
-	// 	    	drawContext.lineTo(newX,newY);
-	// 	    	console.log(newX,newY);
-	// 	    	drawContext.strokeStyle="yellow";
-	// 	    	drawContext.stroke();
-	// 	    	drawContext.closePath();
-	// 	 	}
-	// 	}
-	// )
+	board.addEventListener('mousemove', 
+		function(e){
+		   	if (!running) {
+		   		return;
+		   	} else{
+		   		clean();
+		   		drawIt();
+		    	context = board.getContext("2d");
+		    	current(e);
+		    	context.moveTo(array[array.length-1].x,array[array.length-1].y);
+		    	console.log(array[array.length-1].x);
+		    	console.log(array[array.length-1].y);
+		    	context.lineTo(xnow,ynow);
+		    	context.strokeStyle='#FFCA00';
+		    	context.stroke();
+		    	context.closePath();
+		    	drawIt();
+		    }
+		}
+	)
 }
 Template.makeupquiz.events({
 	'click #erase': function(e){
-		context = board.getContext("2d");
-		context.beginPath();
-		context.fillStyle = '#96989B';
-		context.fillRect(0,0,board.width,board.height);
+		clean();
 		array=[];
 	},
 	'click #draw': function(e){
@@ -74,6 +66,7 @@ Template.makeupquiz.events({
 		context.stroke();
 	}	
 })
+
 
 function Point(x,y) {
 	this.x = x;
@@ -90,6 +83,13 @@ function triangle(){
 	drawContext.stroke();//draw it
 }
 
+function clean(){
+	context = board.getContext("2d");
+	context.beginPath();
+	context.fillStyle = '#96989B';
+	context.fillRect(0,0,board.width,board.height);
+}
+
 function distance(a,b,c,d) { 
 	var distance= Math.sqrt((a-c)*(a-c)+(b-d)*(b-d));
 	return distance;
@@ -99,8 +99,6 @@ function current(e){
 	xnow=e.pageX-board.offsetLeft;//get the x coordinate of the pen
 	ynow=e.pageY-board.offsetTop;//get the y coordinate of the pen
 	point=new Point(xnow,ynow);
-	console.log(xnow,ynow);
-	console.log(array);
 	$("#pos").html("position = ("+xnow+","+ynow+")");
 	return point;
 }
@@ -111,7 +109,7 @@ function add(e){
 function drawIt(){
 	context= board.getContext("2d");
 	context.beginPath();
-	for(var i=0;i<array.length;i++){	
+	for(var i=0;i<array.length-1;i++){	
 		context.moveTo(array[i].x,array[i].y);//move to the start point
 		context.lineTo(array[i+1].x,array[i+1].y);//draw a line from the start point to the 1st point
 		context.strokeStyle="#007724";//or green
